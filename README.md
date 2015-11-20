@@ -1,4 +1,4 @@
 # CDAProject
 
-Joseph Landry
+Joseph Landry\n
 Ben Stankich
