@@ -1,1 +1,5 @@
-TODO: Figure this shit out
+Joe: Instruction Fetch
+Ben: Instruction Partition
+Both: Instruction Decode, Read Register
+
+TODO: ALU, Sign Extend, ALU Operations, Rewrite Memory, Write Register, PC Update
