@@ -156,56 +156,56 @@ int instruction_decode(unsigned op,struct_controls *controls)
             
         //lw
         case 35:
-            control->RegDst = 1;
+            control->RegDst = 0;
             control->RegWrite = 1;
-            control->ALUSrc = 0;
-            control->MemRead = 0;
+            control->ALUSrc = 1;
+            control->MemRead = 1;
             control->MemWrite = 0;
-            control->MemToReg = 0;
+            control->MemToReg = 1;
             control->Jump = 0;
             control->Branch = 0;
-            control->ALUOp = 7;
+            control->ALUOp = 0;
             break;
             
         //lui
         case 15:
-            control->RegDst = 1;
-            control->RegWrite = 1;
-            control->ALUSrc = 0;
+            control->RegDst = 0;
+            control->RegWrite = 0;
+            control->ALUSrc = 1;
             control->MemRead = 0;
-            control->MemWrite = 0;
+            control->MemWrite = 1;
             control->MemToReg = 0;
             control->Jump = 0;
             control->Branch = 0;
-            control->ALUOp = 7;
+            control->ALUOp = 6;
             break;
             
         //sw
         case 43:
-            control->RegDst = 1;
-            control->RegWrite = 1;
-            control->ALUSrc = 0;
-            control->MemRead = 0;
+            control->RegDst = 2; // 2 for dont care
+            control->RegWrite = 0;
+            control->ALUSrc = 1;
+            control->MemRead = 1;
             control->MemWrite = 0;
-            control->MemToReg = 0;
+            control->MemToReg = 2;
             control->Jump = 0;
             control->Branch = 0;
-            control->ALUOp = 7;
+            control->ALUOp = 0;
             break;
         //End I Type Instructions
         
         //J Type Instructions
         //Jump
         case 2:
-            control->RegDst = 1;
-            control->RegWrite = 1;
+            control->RegDst = 0;
+            control->RegWrite = 0;
             control->ALUSrc = 0;
             control->MemRead = 0;
             control->MemWrite = 0;
             control->MemToReg = 0;
-            control->Jump = 0;
+            control->Jump = 1;
             control->Branch = 0;
-            control->ALUOp = 7;  
+            control->ALUOp = 0;
             break; 
         //End J Type Instructions
         
