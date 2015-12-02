@@ -9,32 +9,46 @@ void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
     switch(ALUControl){
         //Z = A+B
         case 000:
+            *ALUresult = A + B;
             break;
         //Z = A-B
         case 001:
+            *ALUresult = A - B;
             break;
         //If A<B, Z = 1, otherwise Z = 0
         case 010:
+            if((signed) A < (signed) B)
+                *ALUresult = 1;
+            else
+                *ALUresult = 0;
             break;
         //If A<B, Z = 1, otherwise Z = 0 UNSIGNED
         case 011:
+            if(A < B)
+                *ALUresult = 1;
+            else
+                *ALUresult = 0;
             break;
         //Z = A AND B
         case 100:
+            *ALUresult = A & B;
             break;
         //Z = A OR B
         case 101:
+            *ALUresult = A | B;
             break;
         //Shift left B by 16 bits
         case 110:
-             break;
+            B << 16;   
+            break;
          //Z = NOT A
          case 111:
+            *ALUresult = ~A;
             break;
     }
     
     //Now check to see if the result is zero, and set the zero bit
-    if(*ALUResult == 0)
+    if(*ALUresult == 0)
         *Zero = 1;
     else
         *Zero = 0;
