@@ -1,5 +1,7 @@
-Joe: Instruction Fetch
-Ben: Instruction Partition
+Joe: Instruction Fetch, Sign Extend, PC Update, ALU
+Ben: Instruction Partition, ALU Op, Rewrite Memory, Write Register
 Both: Instruction Decode, Read Register
 
-TODO: ALU, Sign Extend, ALU Operations, Rewrite Memory, Write Register, PC Update
+TODO: ALU, ALU Operations, Rewrite Memory, Write Register, PC Update
+
+COMPLETED: Instruction Fetch, Instruction Pariion, Read Register
