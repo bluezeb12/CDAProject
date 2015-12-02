@@ -247,7 +247,21 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 /* 10 Points */
 int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsigned *memdata,unsigned *Mem)
 {
+    //check to see if ALUresult is word aligned. and if it isn't return a halt code.
+    if((ALUresult % 4) != 0)
+        return 1;
+        
+    //if we are writing,
+    //Write data to ALUresult * 4 index in Memory
+    if(MemWrite == 1)
+        Mem[ALUresult >> 2] = memdata;
     
+    //if we are reading,
+    //Read data from ALUresult * 4 index in Memory.
+    if(MemRead == 1)
+        *memdata = Mem[ALUresult >> 2];
+        
+    return 0;
 }
 
 
