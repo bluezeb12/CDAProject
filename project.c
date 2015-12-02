@@ -262,5 +262,14 @@ void write_register(unsigned r2,unsigned r3,unsigned memdata,unsigned ALUresult,
 /* 10 Points */
 void PC_update(unsigned jsec,unsigned extended_value,char Branch,char Jump,char Zero,unsigned *PC)
 {
-
+    //always increment by 4 no matter what.
+    *PC += 4;
+    
+    //if branching, and we got a zero, add the extended_value, bitshifted (multiplied by 4)
+    if(Zero == 1 && Branch == 1)
+        *PC += extended_value << 2;
+        
+    //if jumping, jump to the Jump register, and multiply by 4 (word align)
+    if(Jump == 1)
+        *PC = (jsec << 2) | (*PC & 0xf0000000);
 }
