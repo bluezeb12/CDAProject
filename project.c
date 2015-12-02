@@ -104,54 +104,54 @@ int instruction_decode(unsigned op,struct_controls *controls)
         //I Type Instructions
         //addi
         case 8:
-            control->RegDst = 1;
+            control->RegDst = 0;
             control->RegWrite = 1;
-            control->ALUSrc = 0;
+            control->ALUSrc = 1;
             control->MemRead = 0;
             control->MemWrite = 0;
             control->MemToReg = 0;
             control->Jump = 0;
             control->Branch = 0;
-            control->ALUOp = 7;
+            control->ALUOp = 0;
             break;
         
-        //slit
+        //slti
         case 10:
-            control->RegDst = 1;
+            control->RegDst = 0;
             control->RegWrite = 1;
-            control->ALUSrc = 0;
+            control->ALUSrc = 1;
             control->MemRead = 0;
             control->MemWrite = 0;
             control->MemToReg = 0;
             control->Jump = 0;
             control->Branch = 0;
-            control->ALUOp = 7;
+            control->ALUOp = 2;
             break;
             
         //sltiu
         case 11:
-            control->RegDst = 1;
+            control->RegDst = 0;
             control->RegWrite = 1;
-            control->ALUSrc = 0;
+            control->ALUSrc = 1;
             control->MemRead = 0;
             control->MemWrite = 0;
             control->MemToReg = 0;
             control->Jump = 0;
             control->Branch = 0;
-            control->ALUOp = 7;
+            control->ALUOp = 3;
             break;
             
         //beq
         case 4:
-            control->RegDst = 1;
-            control->RegWrite = 1;
+            control->RegDst = 2;
+            control->RegWrite = 0;
             control->ALUSrc = 0;
             control->MemRead = 0;
             control->MemWrite = 0;
-            control->MemToReg = 0;
+            control->MemToReg = 2;
             control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 7;
+            control->Branch = 1;
+            control->ALUOp = 1;
             break;
             
         //lw
