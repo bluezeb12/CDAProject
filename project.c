@@ -94,7 +94,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 0;
             controls->MemRead = 0;
             controls->MemWrite = 0;
-            controls->MemToReg = 0;
+            controls->MemtoReg = 0;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 7;
@@ -109,7 +109,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 1;
             controls->MemRead = 0;
             controls->MemWrite = 0;
-            controls->MemToReg = 0;
+            controls->MemtoReg = 0;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 0;
@@ -122,7 +122,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 1;
             controls->MemRead = 0;
             controls->MemWrite = 0;
-            controls->MemToReg = 0;
+            controls->MemtoReg = 0;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 2;
@@ -135,7 +135,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 1;
             controls->MemRead = 0;
             controls->MemWrite = 0;
-            controls->MemToReg = 0;
+            controls->MemtoReg = 0;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 3;
@@ -148,7 +148,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 0;
             controls->MemRead = 0;
             controls->MemWrite = 0;
-            controls->MemToReg = 2;
+            controls->MemtoReg = 2;
             controls->Jump = 0;
             controls->Branch = 1;
             controls->ALUOp = 1;
@@ -161,7 +161,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 1;
             controls->MemRead = 1;
             controls->MemWrite = 0;
-            controls->MemToReg = 1;
+            controls->MemtoReg = 1;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 0;
@@ -174,7 +174,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 1;
             controls->MemRead = 0;
             controls->MemWrite = 1;
-            controls->MemToReg = 0;
+            controls->MemtoReg = 0;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 6;
@@ -187,7 +187,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 1;
             controls->MemRead = 1;
             controls->MemWrite = 0;
-            controls->MemToReg = 2;
+            controls->MemtoReg = 2;
             controls->Jump = 0;
             controls->Branch = 0;
             controls->ALUOp = 0;
@@ -202,7 +202,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUSrc = 0;
             controls->MemRead = 0;
             controls->MemWrite = 0;
-            controls->MemToReg = 0;
+            controls->MemtoReg = 0;
             controls->Jump = 1;
             controls->Branch = 0;
             controls->ALUOp = 0;
