@@ -6,7 +6,38 @@
 /* 10 Points */
 void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 {
+    switch(ALUControl){
+        //Z = A+B
+        case 000:
+            break;
+        //Z = A-B
+        case 001:
+            break;
+        //If A<B, Z = 1, otherwise Z = 0
+        case 010:
+            break;
+        //If A<B, Z = 1, otherwise Z = 0 UNSIGNED
+        case 011:
+            break;
+        //Z = A AND B
+        case 100:
+            break;
+        //Z = A OR B
+        case 101:
+            break;
+        //Shift left B by 16 bits
+        case 110:
+             break;
+         //Z = NOT A
+         case 111:
+            break;
+    }
     
+    //Now check to see if the result is zero, and set the zero bit
+    if(*ALUResult == 0)
+        *Zero = 1;
+    else
+        *Zero = 0;
 }
 
 /* instruction fetch */
