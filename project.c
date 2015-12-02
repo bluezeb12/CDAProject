@@ -6,7 +6,7 @@
 /* 10 Points */
 void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 {
-
+    
 }
 
 /* instruction fetch */
@@ -35,7 +35,29 @@ void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsi
 /* 15 Points */
 int instruction_decode(unsigned op,struct_controls *controls)
 {
-
+    switch(op){
+        //R Type Instructions
+        case 0:
+            control->RegDst = 1;
+            control->RegWrite = 1;
+            control->ALUSrc = 0;
+            control->MemRead = 0;
+            control->MemWrite = 0;
+            control->MemToReg = 0;
+            control->Jump = 0;
+            control->Branch = 0;
+            control->ALUOp = 7;
+            break;
+        //End R Type Instructions
+        
+        //I Type Instructions
+        
+        //End I Type Instructions
+        
+        //J Type Instructions
+        
+        //End J Type Instructions
+    }
 }
 
 /* Read Register */
@@ -51,7 +73,13 @@ void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigne
 /* 10 Points */
 void sign_extend(unsigned offset,unsigned *extended_value)
 {
-    
+    unsigned negative = offset >> 15;
+    //if the number is negative (MSB = 1), extend with 1s
+    if(negative == 1)
+        *extended_value = offset | 0xFFFF0000;
+    //otherwise extend with 0's
+    else
+        *extended_value = offset | 0x0000FFFF;
 }
 
 /* ALU operations */
