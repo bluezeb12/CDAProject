@@ -89,123 +89,123 @@ int instruction_decode(unsigned op,struct_controls *controls)
     switch(op){
         //R Type Instructions
         case 0:
-            control->RegDst = 1;
-            control->RegWrite = 1;
-            control->ALUSrc = 0;
-            control->MemRead = 0;
-            control->MemWrite = 0;
-            control->MemToReg = 0;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 7;
+            controls->RegDst = 1;
+            controls->RegWrite = 1;
+            controls->ALUSrc = 0;
+            controls->MemRead = 0;
+            controls->MemWrite = 0;
+            controls->MemToReg = 0;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 7;
             break;
         //End R Type Instructions
         
         //I Type Instructions
         //addi
         case 8:
-            control->RegDst = 0;
-            control->RegWrite = 1;
-            control->ALUSrc = 1;
-            control->MemRead = 0;
-            control->MemWrite = 0;
-            control->MemToReg = 0;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 0;
+            controls->RegDst = 0;
+            controls->RegWrite = 1;
+            controls->ALUSrc = 1;
+            controls->MemRead = 0;
+            controls->MemWrite = 0;
+            controls->MemToReg = 0;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 0;
             break;
         
         //slti
         case 10:
-            control->RegDst = 0;
-            control->RegWrite = 1;
-            control->ALUSrc = 1;
-            control->MemRead = 0;
-            control->MemWrite = 0;
-            control->MemToReg = 0;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 2;
+            controls->RegDst = 0;
+            controls->RegWrite = 1;
+            controls->ALUSrc = 1;
+            controls->MemRead = 0;
+            controls->MemWrite = 0;
+            controls->MemToReg = 0;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 2;
             break;
             
         //sltiu
         case 11:
-            control->RegDst = 0;
-            control->RegWrite = 1;
-            control->ALUSrc = 1;
-            control->MemRead = 0;
-            control->MemWrite = 0;
-            control->MemToReg = 0;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 3;
+            controls->RegDst = 0;
+            controls->RegWrite = 1;
+            controls->ALUSrc = 1;
+            controls->MemRead = 0;
+            controls->MemWrite = 0;
+            controls->MemToReg = 0;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 3;
             break;
             
         //beq
         case 4:
-            control->RegDst = 2;
-            control->RegWrite = 0;
-            control->ALUSrc = 0;
-            control->MemRead = 0;
-            control->MemWrite = 0;
-            control->MemToReg = 2;
-            control->Jump = 0;
-            control->Branch = 1;
-            control->ALUOp = 1;
+            controls->RegDst = 2;
+            controls->RegWrite = 0;
+            controls->ALUSrc = 0;
+            controls->MemRead = 0;
+            controls->MemWrite = 0;
+            controls->MemToReg = 2;
+            controls->Jump = 0;
+            controls->Branch = 1;
+            controls->ALUOp = 1;
             break;
             
         //lw
         case 35:
-            control->RegDst = 0;
-            control->RegWrite = 1;
-            control->ALUSrc = 1;
-            control->MemRead = 1;
-            control->MemWrite = 0;
-            control->MemToReg = 1;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 0;
+            controls->RegDst = 0;
+            controls->RegWrite = 1;
+            controls->ALUSrc = 1;
+            controls->MemRead = 1;
+            controls->MemWrite = 0;
+            controls->MemToReg = 1;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 0;
             break;
             
         //lui
         case 15:
-            control->RegDst = 0;
-            control->RegWrite = 0;
-            control->ALUSrc = 1;
-            control->MemRead = 0;
-            control->MemWrite = 1;
-            control->MemToReg = 0;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 6;
+            controls->RegDst = 0;
+            controls->RegWrite = 0;
+            controls->ALUSrc = 1;
+            controls->MemRead = 0;
+            controls->MemWrite = 1;
+            controls->MemToReg = 0;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 6;
             break;
             
         //sw
         case 43:
-            control->RegDst = 2; // 2 for dont care
-            control->RegWrite = 0;
-            control->ALUSrc = 1;
-            control->MemRead = 1;
-            control->MemWrite = 0;
-            control->MemToReg = 2;
-            control->Jump = 0;
-            control->Branch = 0;
-            control->ALUOp = 0;
+            controls->RegDst = 2; // 2 for dont care
+            controls->RegWrite = 0;
+            controls->ALUSrc = 1;
+            controls->MemRead = 1;
+            controls->MemWrite = 0;
+            controls->MemToReg = 2;
+            controls->Jump = 0;
+            controls->Branch = 0;
+            controls->ALUOp = 0;
             break;
         //End I Type Instructions
         
         //J Type Instructions
         //Jump
         case 2:
-            control->RegDst = 0;
-            control->RegWrite = 0;
-            control->ALUSrc = 0;
-            control->MemRead = 0;
-            control->MemWrite = 0;
-            control->MemToReg = 0;
-            control->Jump = 1;
-            control->Branch = 0;
-            control->ALUOp = 0;
+            controls->RegDst = 0;
+            controls->RegWrite = 0;
+            controls->ALUSrc = 0;
+            controls->MemRead = 0;
+            controls->MemWrite = 0;
+            controls->MemToReg = 0;
+            controls->Jump = 1;
+            controls->Branch = 0;
+            controls->ALUOp = 0;
             break; 
         //End J Type Instructions
         
@@ -240,7 +240,6 @@ void sign_extend(unsigned offset,unsigned *extended_value)
 /* 10 Points */
 int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigned funct,char ALUOp,char ALUSrc,unsigned *ALUresult,char *Zero)
 {
-	// 
 	if (ALUSrc == 1) {
 		data2 = extended_value;
 	}
