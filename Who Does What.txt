@@ -2,4 +2,4 @@ Joe: Instruction Fetch, Sign Extend, PC Update, ALU
 Ben: Instruction Partition, ALU Op, Rewrite Memory, Write Register
 Both: Instruction Decode, Read Register
 
-COMPLETED: Instruction Fetch, Instruction Pariion, Read Register, Sign Extend
+COMPLETED: Instruction Fetch, Instruction Partition, Read Register, Sign Extend
