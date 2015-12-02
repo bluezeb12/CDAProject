@@ -306,7 +306,7 @@ int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsig
     //if we are writing,
     //Write data to ALUresult * 4 index in Memory
     if(MemWrite == 1)
-        Mem[ALUresult >> 2] = memdata;
+        Mem[ALUresult >> 2] = data2;
     
     //if we are reading,
     //Read data from ALUresult * 4 index in Memory.
