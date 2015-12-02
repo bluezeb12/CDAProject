@@ -61,9 +61,10 @@ int instruction_fetch(unsigned PC,unsigned *Mem,unsigned *instruction)
 	//Multiply by 4 to get the proper address in memory
 	unsigned index = PC >> 2;
 
-	if(index % 4 != 0)
+	if(PC % 4 != 0)
 	    return 1;
 	*instruction = Mem[index];
+	return 0;
 }
 
 
@@ -212,6 +213,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
         default:
             return 1;
     }
+    return 0;
 }
 
 /* Read Register */
@@ -233,7 +235,7 @@ void sign_extend(unsigned offset,unsigned *extended_value)
         *extended_value = offset | 0xFFFF0000;
     //otherwise extend with 0's
     else
-        *extended_value = offset | 0x0000FFFF;
+        *extended_value = offset & 0x0000FFFF;
 }
 
 /* ALU operations */
@@ -297,21 +299,29 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 /* Read / Write Memory */
 /* 10 Points */
 int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsigned *memdata,unsigned *Mem)
-{
-    //check to see if ALUresult is word aligned. and if it isn't return a halt code.
-    if((ALUresult % 4) != 0)
-        return 1;
+{   
+    printf("rw");
         
     //if we are writing,
     //Write data to ALUresult * 4 index in Memory
-    if(MemWrite == 1)
-        Mem[ALUresult >> 2] = data2;
+    //Word aligned
+    if(MemWrite == 1){
+        if((ALUresult % 4) == 0){
+            Mem[ALUresult >> 2] = data2;
+        }
+        else
+            return 1;
+    }
     
     //if we are reading,
     //Read data from ALUresult * 4 index in Memory.
-    if(MemRead == 1)
-        *memdata = Mem[ALUresult >> 2];
-        
+    if(MemRead == 1){
+        if((ALUresult % 4) == 0){
+            Mem[ALUresult >> 2] = data2;           
+        }
+        else
+            return 1;     
+    }
     return 0;
 }
 
@@ -320,6 +330,7 @@ int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsig
 /* 10 Points */
 void write_register(unsigned r2,unsigned r3,unsigned memdata,unsigned ALUresult,char RegWrite,char RegDst,char MemtoReg,unsigned *Reg)
 {
+printf("here");
     if(RegWrite==1){
         //Memory to register
         if(MemtoReg == 1 && RegDst == 0)
