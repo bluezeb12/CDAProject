@@ -299,9 +299,7 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 /* Read / Write Memory */
 /* 10 Points */
 int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsigned *memdata,unsigned *Mem)
-{   
-    printf("rw");
-        
+{           
     //if we are writing,
     //Write data to ALUresult * 4 index in Memory
     //Word aligned
@@ -330,7 +328,6 @@ int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsig
 /* 10 Points */
 void write_register(unsigned r2,unsigned r3,unsigned memdata,unsigned ALUresult,char RegWrite,char RegDst,char MemtoReg,unsigned *Reg)
 {
-printf("here");
     if(RegWrite==1){
         //Memory to register
         if(MemtoReg == 1 && RegDst == 0)
