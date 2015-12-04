@@ -1,3 +1,7 @@
+// Joe Landry and Benjamin Stankich
+// CDA 3103 - MIPS Simulator Project
+// December 4, 2015
+
 #include "spimcore.h"
 #include <stdio.h>
 
@@ -61,8 +65,10 @@ int instruction_fetch(unsigned PC,unsigned *Mem,unsigned *instruction)
 	//Multiply by 4 to get the proper address in memory
 	unsigned index = PC >> 2;
 
+    // if PC isn't byte addressed (divisible by 4)
 	if(PC % 4 != 0)
 	    return 1;
+    // set intruction equal to memory at proper address
 	*instruction = Mem[index];
 	return 0;
 }
@@ -72,6 +78,8 @@ int instruction_fetch(unsigned PC,unsigned *Mem,unsigned *instruction)
 /* 10 Points */
 void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsigned *r2, unsigned *r3, unsigned *funct, unsigned *offset, unsigned *jsec)
 {
+    // shift bits until we have only what we want for each instruction field
+    // mask with 0s and 1s to isolate only the digits for that field
 	*op = (instruction >> 26) & 0b00000000000000000000000000111111; // instruction[31-26]
 	*r1 = (instruction >> 21) & 0b11111; // instruction[25-21]
 	*r2 = (instruction >> 16) & 0b11111; // instruction[20-16]
@@ -87,6 +95,7 @@ void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsi
 /* 15 Points */
 int instruction_decode(unsigned op,struct_controls *controls)
 {
+    // the values we set depend on which opcode is recieved
     switch(op){
         //R Type Instructions
         case 0:
@@ -183,7 +192,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
             
         //sw
         case 43:
-            controls->RegDst = 2; // 2 for dont care
+            controls->RegDst = 2; // 2 for don't care
             controls->RegWrite = 0;
             controls->ALUSrc = 1;
             controls->MemRead = 0;
@@ -220,6 +229,7 @@ int instruction_decode(unsigned op,struct_controls *controls)
 /* 5 Points */
 void read_register(unsigned r1,unsigned r2,unsigned *Reg,unsigned *data1,unsigned *data2)
 {
+    // fill data1 and data2 with the values from register array (registers 1 and 2)
     *data1 = Reg[r1];
     *data2 = Reg[r2];
 }
@@ -242,6 +252,7 @@ void sign_extend(unsigned offset,unsigned *extended_value)
 /* 10 Points */
 int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigned funct,char ALUOp,char ALUSrc,unsigned *ALUresult,char *Zero)
 {
+    // if the ALUSrc is 1, set data2 to extended_value
 	if (ALUSrc == 1) {
 		data2 = extended_value;
 	}
@@ -282,7 +293,7 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 	    	case 39:
 	    		ALUOp = 7;
 	    		break;
-	    	// default for hault or don't care
+	    	// default for halt or don't care
 	    	default:
 	    		return 1;
 	    }
@@ -329,6 +340,7 @@ int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsig
 /* 10 Points */
 void write_register(unsigned r2,unsigned r3,unsigned memdata,unsigned ALUresult,char RegWrite,char RegDst,char MemtoReg,unsigned *Reg)
 {
+    // if we're writing
     if(RegWrite==1){
         //Memory to register
         if(MemtoReg == 1 && RegDst == 0)
