@@ -6,43 +6,43 @@
 /* 10 Points */
 void ALU(unsigned A,unsigned B,char ALUControl,unsigned *ALUresult,char *Zero)
 {
-    switch(ALUControl){
+    switch((int)ALUControl){
         //Z = A+B
-        case 000:
+        case 0:
             *ALUresult = A + B;
             break;
         //Z = A-B
-        case 001:
+        case 1:
             *ALUresult = A - B;
             break;
         //If A<B, Z = 1, otherwise Z = 0
-        case 010:
+        case 2:
             if((signed) A < (signed) B)
                 *ALUresult = 1;
             else
                 *ALUresult = 0;
             break;
         //If A<B, Z = 1, otherwise Z = 0 UNSIGNED
-        case 011:
+        case 3:
             if(A < B)
                 *ALUresult = 1;
             else
                 *ALUresult = 0;
             break;
         //Z = A AND B
-        case 100:
+        case 4:
             *ALUresult = A & B;
             break;
         //Z = A OR B
-        case 101:
+        case 5:
             *ALUresult = A | B;
             break;
         //Shift left B by 16 bits
-        case 110:
-            B << 16;   
+        case 6:
+            *ALUresult = B << 16;   
             break;
-         //Z = NOT A
-         case 111:
+        //Z = NOT A
+        case 7:
             *ALUresult = ~A;
             break;
     }
@@ -76,9 +76,9 @@ void instruction_partition(unsigned instruction, unsigned *op, unsigned *r1,unsi
 	*r1 = (instruction >> 21) & 0b11111; // instruction[25-21]
 	*r2 = (instruction >> 16) & 0b11111; // instruction[20-16]
 	*r3 = (instruction >> 11) & 0b11111; // instruction[15-11]
-	*funct = (instruction) & 0b00000000000000000000000000111111; // instruction[5-0]
-	*offset = (instruction) & 0b00000000000000001111111111111111; // instruction[15-0]
-	*jsec = (instruction) & 0b00000011111111111111111111111111; // instruction[25-0]
+	*funct = instruction & 0b00000000000000000000000000111111; // instruction[5-0]
+	*offset = instruction & 0b00000000000000001111111111111111; // instruction[15-0]
+	*jsec = instruction & 0b00000011111111111111111111111111; // instruction[25-0]
 }
 
 
@@ -116,11 +116,11 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUOp = 0;
             break;
         
-        //slti
+        //slt
         case 10:
-            controls->RegDst = 0;
+            controls->RegDst = 1;
             controls->RegWrite = 1;
-            controls->ALUSrc = 1;
+            controls->ALUSrc = 0;
             controls->MemRead = 0;
             controls->MemWrite = 0;
             controls->MemtoReg = 0;
@@ -129,11 +129,11 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->ALUOp = 2;
             break;
             
-        //sltiu
+        //sltu
         case 11:
-            controls->RegDst = 0;
+            controls->RegDst = 1;
             controls->RegWrite = 1;
-            controls->ALUSrc = 1;
+            controls->ALUSrc = 0 ;
             controls->MemRead = 0;
             controls->MemWrite = 0;
             controls->MemtoReg = 0;
@@ -171,10 +171,10 @@ int instruction_decode(unsigned op,struct_controls *controls)
         //lui
         case 15:
             controls->RegDst = 0;
-            controls->RegWrite = 0;
+            controls->RegWrite = 1;
             controls->ALUSrc = 1;
             controls->MemRead = 0;
-            controls->MemWrite = 1;
+            controls->MemWrite = 0;
             controls->MemtoReg = 0;
             controls->Jump = 0;
             controls->Branch = 0;
@@ -186,8 +186,8 @@ int instruction_decode(unsigned op,struct_controls *controls)
             controls->RegDst = 2; // 2 for dont care
             controls->RegWrite = 0;
             controls->ALUSrc = 1;
-            controls->MemRead = 1;
-            controls->MemWrite = 0;
+            controls->MemRead = 0;
+            controls->MemWrite = 1;
             controls->MemtoReg = 2;
             controls->Jump = 0;
             controls->Branch = 0;
@@ -275,7 +275,7 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 	    		ALUOp = 5;
 	    		break;
 	    	// shift left right variable
-	    	case 6:
+	    	case 4:
 	    		ALUOp = 6;
 	    		break;
 	    	// nor
@@ -299,7 +299,17 @@ int ALU_operations(unsigned data1,unsigned data2,unsigned extended_value,unsigne
 /* Read / Write Memory */
 /* 10 Points */
 int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsigned *memdata,unsigned *Mem)
-{           
+{       
+    //if we are reading,
+    //Read data from ALUresult * 4 index in Memory.
+    if(MemRead == 1){
+        if((ALUresult % 4) == 0){
+            *memdata = Mem[ALUresult >> 2];         
+        }
+        else
+            return 1;     
+    }
+            
     //if we are writing,
     //Write data to ALUresult * 4 index in Memory
     //Word aligned
@@ -310,16 +320,7 @@ int rw_memory(unsigned ALUresult,unsigned data2,char MemWrite,char MemRead,unsig
         else
             return 1;
     }
-    
-    //if we are reading,
-    //Read data from ALUresult * 4 index in Memory.
-    if(MemRead == 1){
-        if((ALUresult % 4) == 0){
-            Mem[ALUresult >> 2] = data2;           
-        }
-        else
-            return 1;     
-    }
+
     return 0;
 }
 
